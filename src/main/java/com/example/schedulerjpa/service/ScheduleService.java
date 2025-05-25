@@ -3,7 +3,9 @@ package com.example.schedulerjpa.service;
 import com.example.schedulerjpa.dto.ScheduleRequestDto;
 import com.example.schedulerjpa.dto.ScheduleResponseDto;
 import com.example.schedulerjpa.entity.Schedule;
+import com.example.schedulerjpa.entity.User;
 import com.example.schedulerjpa.repository.ScheduleRepository;
+import com.example.schedulerjpa.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,23 +16,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     public ScheduleResponseDto create(ScheduleRequestDto requestDto) {
-        Schedule schedule = new Schedule(
-                null,
-                requestDto.getUser(),
-                requestDto.getTitle(),
-                requestDto.getContent()
-        );
+        User user = userRepository.findById(requestDto.getUserId())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        Schedule saved = scheduleRepository.save(schedule);
-        return new ScheduleResponseDto(saved);
+        Schedule schedule = new Schedule(user, requestDto.getTitle(), requestDto.getContent());
+        return new ScheduleResponseDto(scheduleRepository.save(schedule));
     }
 
     public List<ScheduleResponseDto> getAll() {
         return scheduleRepository.findAll().stream()
                 .map(ScheduleResponseDto::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public ScheduleResponseDto getById(Long id) {
