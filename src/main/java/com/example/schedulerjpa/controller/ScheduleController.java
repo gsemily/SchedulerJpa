@@ -4,6 +4,7 @@ import com.example.schedulerjpa.dto.ScheduleRequestDto;
 import com.example.schedulerjpa.dto.ScheduleResponseDto;
 import com.example.schedulerjpa.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

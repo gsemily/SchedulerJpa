@@ -1,7 +1,6 @@
 package com.example.schedulerjpa.dto;
 
 import lombok.Getter;
-import org.springframework.stereotype.Service;
 
 @Getter
 public class ScheduleRequestDto {

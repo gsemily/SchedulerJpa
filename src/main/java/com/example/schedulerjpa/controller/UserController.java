@@ -14,9 +14,9 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
-    public UserResponseDto create(@RequestBody UserRequestDto requestDto) {
-        return userService.createUser(requestDto);
+    @PostMapping("/signup")
+    public UserResponseDto signUp(@RequestBody UserRequestDto requestDto) {
+        return userService.signUp(requestDto);
     }
 
     @GetMapping
