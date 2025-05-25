@@ -21,11 +21,13 @@ public class Schedule extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
     @Setter
+    @Column(nullable = false)
     private String title;
 
     @Setter
-    @Column(columnDefinition = "long_text")
+    @Column(columnDefinition = "long text")
     private String content;
 
     public Schedule(User user, String title, String content) {
