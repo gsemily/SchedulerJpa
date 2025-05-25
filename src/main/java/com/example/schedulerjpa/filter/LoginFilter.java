@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Slf4j
 public class LoginFilter implements Filter {
-    private static final String[] WHITE_LIST = {"/", "/user/signup", "/login", "/logout"};
+    private static final String[] WHITE_LIST = {"/", "/users/signup", "/users/login"};
 
     @Override
     public void doFilter(
@@ -36,8 +36,9 @@ public class LoginFilter implements Filter {
             HttpSession session = httpRequest.getSession(false);
 
             // 로그인하지 않은 사용자인 경우
-            if (session == null || session.getAttribute("sessionKey값") == null) {
-                throw new RuntimeException("로그인 해주세요.");
+            if (session == null || session.getAttribute("user") == null) {
+                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "로그인 해주세요.");
+                return;
             }
             // 로그인 성공 로직
         }
