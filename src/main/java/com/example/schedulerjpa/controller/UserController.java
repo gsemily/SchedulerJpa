@@ -6,6 +6,7 @@ import com.example.schedulerjpa.dto.UserResponseDto;
 import com.example.schedulerjpa.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public UserResponseDto signUp(@RequestBody UserRequestDto requestDto) {
+    public UserResponseDto signUp(@Valid @RequestBody UserRequestDto requestDto) {
         return userService.createUser(requestDto);
     }
 
