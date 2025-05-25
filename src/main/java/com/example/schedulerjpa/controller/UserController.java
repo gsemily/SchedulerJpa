@@ -28,9 +28,8 @@ public class UserController {
 
     @PostMapping("/login")
     public void login(@RequestBody LoginRequestDto requestDto,
-                      HttpServletRequest request,
-                      HttpServletResponse response) throws IOException {
-        userService.login(requestDto, request, response);
+                      HttpServletRequest request) throws IOException {
+        userService.login(requestDto, request);
     }
 
     @GetMapping
