@@ -13,5 +13,6 @@ CREATE TABLE schedule (
     content VARCHAR(255) NOT NULL,
     user_id BIGINT NOT NULL,
     created_at DATETIME,
-    modified_at DATETIME
+    modified_at DATETIME,
+    CONSTRAINT fk_schedule_user FOREIGN KEY (user_id) REFERENCES user(id)
 );
