@@ -1,7 +1,7 @@
 # Java Project - Scheduler(JPA)
 
 ## 💻프로젝트 소개
-사용자의 일정을 관리하는 일정 관리 프로그램
+사용자 인증 및 일정 관리를 지원하는 스프링부트 기반 웹 애플리케이션
 
 ### ⏰개발 기간
 25.05.14 ~ 25.05.26
@@ -18,11 +18,11 @@ com.example.scheduler
 
 ├── config
 
-│   └── FilterConfig.java
+│   ├── FilterConfig.java
+
+│   └── PasswordEncoder.java
 
 ├── controller
-
-│   ├── LoginController.java
 
 │   ├── ScheduleController.java
 
@@ -31,8 +31,6 @@ com.example.scheduler
 ├── dto
 
 │   ├── LoginRequestDto.java
-
-│   ├── LoginResponseDto.java
 
 │   ├── ScheduleRequestDto.java
 
@@ -69,35 +67,63 @@ com.example.scheduler
 └── SchedulerApplication.java
 
 ---
-**API 설계**
+### API 설계
+
+**사용자 기능**
 
 ![Image](https://github.com/user-attachments/assets/ab354b07-193f-4985-8ee1-e79c3c956ae8)
 
-**ERD**
+**일정 기능**
+
+### ERD
 
 ![Image](https://github.com/user-attachments/assets/c84baf82-e814-4e72-bfc6-03e1241fcc4e)
 
 ---
 ## 📌주요기능
-**일정 작성하기**
-* 사용자가 입력한 todo, writer, password 값을 받아 새로운 일정 생성
-* created_at, modified_at은 현재 시간으로 자동 설정
-* Entity → DTO로 변환 후 JSON으로 응답
 
-**전체 일정 조회하기**
-* 데이터베이스에 저장된 모든 일정 목록을 modified_at 기준 내림차순으로 정렬하여 반환
+### 🧑‍💻 회원 기능
 
-**선택 일정 조회하기**
-* 고유 ID를 통해 특정 일정을 단건 조회
-* 일정이 존재하지 않으면 에러 반환
-* Entity를 DTO로 변환해 반환 (비밀번호는 포함하지 않음)
+**회원가입**
+* 유저명 4글자 이내, 이메일 형식 검증
+* 비밀번호 숫자+문자 조합 검증
+* 비밀번호 암호화 후 저장
 
-**일정 수정하기**
-* 사용자가 요청한 ID와 함께 todo, writer, password 전달
-* 비밀번호가 일치하는 경우만 수정 가능
-* 수정 시점의 modified_at을 현재 시간으로 갱신
+**로그인**
+* 이메일/비밀번호로 로그인
+* 세션 생성 및 인증 필터 통과
 
-**일정 삭제하기**
-* 삭제 요청 시, password를 요청 Body에 포함
-* 비밀번호가 일치하는 경우 해당 일정 삭제 처리
-* 비밀번호가 일치하지 않을 경우 에러 반환
+### 📅 일정 관리
+
+**일정 작성**
+* 로그인된 사용자 한정 작성 가능
+* 제목은 10자 이내 제한
+
+**전체 일정 조회**
+* 로그인된 사용자 한정 접근 가능
+
+**특정 일정 조회**
+* ID로 단건 조회
+
+**일정 수정**
+* 본인 소유 일정 수정 가능
+
+**일정 삭제**
+* 본인 소유 일정 삭제 가능
+
+### 🔐 인증 및 보안
+
+**로그인**
+* 이메일과 비밀번호로 로그인
+* 로그인 성공 시 Session 저장 (쿠키 자동 발급)
+* 로그인 실패 시 HTTP Status code 401 반환
+
+**필터 적용**
+
+* 인증 제외 경로: /, /user/signup, /login 
+
+  이외의 요청은 로그인 여부 검증
+
+* 비밀번호 암호화 
+* 회원가입 시 비밀번호 Bcrypt 해시 처리 
+* 로그인 시 입력 비밀번호와 해시 비교

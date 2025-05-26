@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//필터 등록
 @Configuration
 public class FilterConfig {
 
@@ -13,7 +14,6 @@ public class FilterConfig {
     public FilterRegistrationBean loginFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LoginFilter()); // Filter 등록
-        filterRegistrationBean.setOrder(1); // Filter 순서 2 설정
         filterRegistrationBean.addUrlPatterns("/*"); // 전체 URL에 Filter 적용
 
         return filterRegistrationBean;
