@@ -71,13 +71,15 @@ com.example.scheduler
 
 **사용자 기능**
 
-![Image](https://github.com/user-attachments/assets/ab354b07-193f-4985-8ee1-e79c3c956ae8)
+![Image](https://github.com/user-attachments/assets/b2710669-fe6e-4983-b19e-d47588b32ca9)
 
 **일정 기능**
 
+![Image](https://github.com/user-attachments/assets/03cc9f38-a5fc-4fe5-b078-0e256c0e7685)
+
 ### ERD
 
-![Image](https://github.com/user-attachments/assets/c84baf82-e814-4e72-bfc6-03e1241fcc4e)
+![Image](https://github.com/user-attachments/assets/aa50cb98-a691-47f1-b71d-57e08f80d052)
 
 ---
 ## 📌주요기능
